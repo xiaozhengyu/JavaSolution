@@ -97,3 +97,24 @@ public boolean equals(Object x) {
 
 #### 2.2 实现细节
 
+### 3. 总结
+
+BigDecimal 类的 compartTo 方法和 equals 方法都能用于比较 BigDecimal 实例代表的数值的大小。但两个方法在判别两个数值是否相等的标准上存在一定的差异：compartTo 仅要求两个数的值（value）相等，equals 要求两个数的值和精度（scale）都要相等。
+
+```java
+public static void main(String[] args) {
+    BigDecimal b1 = new BigDecimal("2.0");
+    BigDecimal b2 = new BigDecimal("2.00");
+
+    System.out.println("b1.compareTo(b2):" + (b1.compareTo(b2) == 0));
+    System.out.println("b1.equals(b2):" + b1.equals(b2));
+}
+```
+
+```
+b1.compareTo(b2):true
+b1.equals(b2):false
+
+Process finished with exit code 0
+```
+
