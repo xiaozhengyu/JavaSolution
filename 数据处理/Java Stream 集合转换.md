@@ -19,3 +19,4 @@ Set<String> studentIdSet = studentList.stream()
     .map(Student::getStudentId())
     .collect(Collectors.toSet());
 ```
+
