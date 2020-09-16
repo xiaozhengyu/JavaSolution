@@ -19,7 +19,7 @@ public static class UserIdAndDepartId {
 }
 ```
 
-### 实例1  Map<String,List<UserIdAndDepartId>>   
+#### 1. List\<Instance>  to  Map<String , List\<Instance>>   
 
 ```java
 public static void main(String[] args) {
@@ -35,7 +35,7 @@ public static void main(String[] args) {
 }
 ```
 
-### 实例2 Map<String,Set<UserIdAndDepartId>>
+#### 2. List\<Instance>  to  Map<String , Set\<Instance>>
 
 ```java
 public static void main(String[] args) {
@@ -56,7 +56,7 @@ public static void main(String[] args) {
 }
 ```
 
-### 实例3 Map<String,Set<String>>
+#### 3. List\<Instance>  to  Map<String , Set\<String>>
 
 ```java
 public static void main(String[] args) {
@@ -80,7 +80,7 @@ public static void main(String[] args) {
 }
 ```
 
-### 实例4 Map<String,Obj>
+#### 4. List\<Instance>  to  Map<String , Instance>
 
 ```java
 public class Main2 {
@@ -94,5 +94,91 @@ public class Main2 {
                 .stream()
                 .collect(Collectors.toMap(Employee::getId, e -> e));
     }
+}
+```
+
+#### 5. List<Map<String,String>> to Map<String , Set\<String>>
+
+```java
+public static void main(String[] args) {
+    List<Map<String, String>> studentCourseInfoList = new ArrayList<>(10);
+    Random random = new Random();
+    for (int i = 0; i < 10; i++) {
+        Map<String, String> studentCourseInfo = new HashMap<>(2);
+        studentCourseInfo.put("studentNo", random.nextInt(4) + "");
+        studentCourseInfo.put("courseNo", random.nextInt(10) + "");
+        studentCourseInfoList.add(studentCourseInfo);
+    }
+
+    /*
+     * [
+     *   {"studentNo":"111","courseNo":"aaa"},
+     *   {"studentNo":"111","courseNo":"bbb"},
+     *   {"studentNo":"222","courseNo":"ccc"},
+     *   {"studentNo":"222","courseNo":"ddd"},......
+     * ]
+     * convert to:
+     * {
+     *     "111":["aaa","bbb"],
+     *     "222":["ccc","ddd"],......
+     * }
+     */
+
+    Map<String, Set<String>> student2CourseSetMap = studentCourseInfoList
+            .stream()
+            .collect(
+                    Collectors.groupingBy(
+                            // 数据分组
+                            sc -> sc.get("studentNo"),
+                            // 数据转换
+                            Collectors.mapping(
+                                    sc -> sc.get("courseNo"),
+                                    Collectors.toSet()
+                            )
+                    )
+            );
+}
+```
+
+#### 6. List<Map<String,String>> to Map<String , String>
+
+```java
+public static void main(String[] args) {
+    List<Map<String, String>> studentCourseInfoList = new ArrayList<>(10);
+    Random random = new Random();
+    for (int i = 0; i < 10; i++) {
+        Map<String, String> studentCourseInfo = new HashMap<>(2);
+        studentCourseInfo.put("studentNo", random.nextInt(4) + "");
+        studentCourseInfo.put("courseNo", random.nextInt(10) + "");
+        studentCourseInfoList.add(studentCourseInfo);
+    }
+
+    /*
+     * [
+     *   {"studentNo":"111","courseNo":"aaa"},
+     *   {"studentNo":"111","courseNo":"bbb"},
+     *   {"studentNo":"222","courseNo":"ccc"},
+     *   {"studentNo":"222","courseNo":"ddd"},......
+     * ]
+     * convert to:
+     * {
+     *     "111":["aaa","bbb"],
+     *     "222":["ccc","ddd"],......
+     * }
+     */
+
+    Map<String, String> student2CourseSetMap = studentCourseInfoList
+            .stream()
+            .collect(
+                    Collectors.groupingBy(
+                            // 数据分组
+                            sc -> sc.get("studentNo"),
+                            // 数据转换
+                            Collectors.mapping(
+                                    sc -> sc.get("courseNo"),
+                                    Collectors.joining(",")
+                            )
+                    )
+            );
 }
 ```
