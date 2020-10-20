@@ -162,8 +162,8 @@ public static void main(String[] args) {
      * ]
      * convert to:
      * {
-     *     "111":["aaa","bbb"],
-     *     "222":["ccc","ddd"],......
+     *     "111":"aaa,bbb",
+     *     "222":"ccc,ddd",......
      * }
      */
 
@@ -182,3 +182,4 @@ public static void main(String[] args) {
             );
 }
 ```
+
