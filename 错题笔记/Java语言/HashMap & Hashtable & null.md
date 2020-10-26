@@ -44,7 +44,7 @@ Hashtable类put方法源码：
 
 从Hashtable类put方法的源码可以发现：
 
-- **Hashtable中key和value都不能是null。**若value是null，put方法将抛出NPE，若key是null，put方法将产生RuntimeException。
+- **Hashtable中key和value都不能是null。**若key或value是null，put方法将抛出NPE。
 - **返回值为null时，只有一种可能：原Hashtable中不含有该key。**
 
 ## HashMap::put
