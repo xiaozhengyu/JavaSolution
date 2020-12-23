@@ -1,6 +1,6 @@
 # 使用Calendar计算日期需要注意的问题
 
-### 1. Calendar.getInstance()方法
+## 1. getInstance()
 
 相关源码：
 
@@ -42,3 +42,49 @@ public class Main {
 > 日期2：1598523874755(毫秒)
 >
 > Process finished with exit code 0
+
+## 2.set()
+
+相关源码：
+
+```java
+/*
+ * ...... 
+ * <h3>Getting and Setting Calendar Field Values</h3>
+ *
+ * <p>The calendar field values can be set by calling the <code>set</code>
+ * methods. Any field values set in a <code>Calendar</code> will not be
+ * interpreted until it needs to calculate its time value (milliseconds from
+ * the Epoch) or values of the calendar fields. Calling the
+ * <code>get</code>, <code>getTimeInMillis</code>, <code>getTime</code>,
+ * <code>add</code> and <code>roll</code> involves such calculation.
+ * ......
+ */
+public abstract class Calendar implements Serializable, Cloneable, Comparable<Calendar> {
+    ......
+}
+```
+
+- 可以通过set方法修改Calendar实例各个Field的值；
+- 只有在真正需要使用calendar的值之前，这种改变才会生效；
+- get()、getTimeMillis()、getTime()、add()、roll()方法可以触发set方法的修改。
+
+例子：
+
+```java
+public static void main(String[] args) {
+        Calendar calendar = Calendar.getInstance();
+        System.out.println(calendar);
+
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        System.out.println(calendar);
+
+        calendar.getTime();
+        System.out.println(calendar);
+}
+```
+
+| 输出1                                                        | 输出2                                                        | 输出3                                                        |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| java.util.GregorianCalendar[<br/>time=1608696480267,<br/>areFieldsSet=true,<br/>areAllFieldsSet=true,<br/>lenient=true,<br/>firstDayOfWeek=1,<br/>minimalDaysInFirstWeek=1,<br/>ERA=1,<br/>YEAR=2020,<br/>MONTH=11,<br/>WEEK_OF_YEAR=52,<br/>WEEK_OF_MONTH=4,<br/>DAY_OF_MONTH=23,<br/>DAY_OF_YEAR=358,<br/>DAY_OF_WEEK=4,<br/>DAY_OF_WEEK_IN_MONTH=4,<br/>AM_PM=1,<br/>HOUR=0,<br/>HOUR_OF_DAY=12,<br/>MINUTE=8,<br/>SECOND=0,<br/>MILLISECOND=267,<br/>ZONE_OFFSET=28800000,<br/>DST_OFFSET=0] | java.util.GregorianCalendar[<br/>time=?,<br/>areFieldsSet=false,<br/>areAllFieldsSet=true,<br/>lenient=true,<br/>firstDayOfWeek=1,<br/>minimalDaysInFirstWeek=1,<br/>ERA=1,<br/>YEAR=2020,<br/>MONTH=11,<br/>WEEK_OF_YEAR=52,<br/>WEEK_OF_MONTH=4,<br/>DAY_OF_MONTH=1,<br/>DAY_OF_YEAR=358,<br/>DAY_OF_WEEK=4,<br/>DAY_OF_WEEK_IN_MONTH=4,<br/>AM_PM=1,HOUR=0,<br/>HOUR_OF_DAY=12,<br/>MINUTE=8,<br/>SECOND=0,<br/>MILLISECOND=267,<br/>ZONE_OFFSET=28800000,<br/>DST_OFFSET=0] | java.util.GregorianCalendar[<br/>time=1606795680267,<br/>areFieldsSet=true,<br/>areAllFieldsSet=false,<br/>lenient=true,<br/>firstDayOfWeek=1,<br/>minimalDaysInFirstWeek=1,<br/>ERA=1,<br/>YEAR=2020,<br/>MONTH=11,<br/>WEEK_OF_YEAR=49,<br/>WEEK_OF_MONTH=1,<br/>DAY_OF_MONTH=1,<br/>DAY_OF_YEAR=336,<br/>DAY_OF_WEEK=3,<br/>DAY_OF_WEEK_IN_MONTH=1,<br/>AM_PM=1,<br/>HOUR=0,<br/>HOUR_OF_DAY=12,<br/>MINUTE=8,<br/>SECOND=0,<br/>MILLISECOND=267,<br/>ZONE_OFFSET=28800000,<br/>DST_OFFSET=0] |
+
