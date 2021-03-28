@@ -51,5 +51,3 @@ public HashMap() {
 - initialCapacity - 初始容量，合理的值：(需要存储的元素个数 / 负载因子) + 1
 - loadFactor - 负载因子，默认值为0.75
 
-
-
