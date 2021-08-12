@@ -45,7 +45,7 @@ vi /etc/samba/smb.conf
    browseable = yes
    writeable = yes
    available = yes
-   valid users = xiaozy
+   valid users = xiaozy：
    write list = xiaozy
    directory mask = 0775
    create mask = 0775
