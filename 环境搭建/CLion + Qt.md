@@ -69,3 +69,7 @@ Qt 版本：5.9.1
      >   Qt 的目录结构很奇怪：
      >
      >   ![image-20220607232546719](markdown/CLion + Qt.assets/image-20220607232546719.png)
+     >
+     >   注意看，别配置错了：
+     >
+     >   ![image-20220608090855094](markdown/CLion + Qt.assets/image-20220608090855094.png)
